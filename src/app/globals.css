@@ -1,0 +1,400 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: 222.2 47.4% 11.2%;
+  --primary-foreground: 210 40% 98%;
+
+  --secondary: 210 40% 96.1%;
+  --secondary-foreground: 222.2 47.4% 11.2%;
+
+  --muted: 210 40% 96.1%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+
+  --accent: 210 40% 96.1%;
+  --accent-foreground: 222.2 47.4% 11.2%;
+
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 40% 98%;
+
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --ring: 222.2 84% 4.9%;
+
+  --radius: 0.5rem;
+
+  --background: 0 0% 100%;
+  --foreground: 222.2 47.4% 11.2%;
+
+  --card: 0 0% 100%;
+  --card-foreground: 222.2 47.4% 11.2%;
+}
+
+.dark {
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
+
+  --card: 222.2 84% 4.9%;
+  --card-foreground: 210 40% 98%;
+
+  --popover: 222.2 84% 4.9%;
+  --popover-foreground: 210 40% 98%;
+
+  --primary: 210 40% 98%;
+  --primary-foreground: 222.2 47.4% 11.2%;
+
+  --secondary: 217.2 32.6% 17.5%;
+  --secondary-foreground: 210 40% 98%;
+
+  --muted: 217.2 32.6% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+
+  --accent: 217.2 32.6% 17.5%;
+  --accent-foreground: 210 40% 98%;
+
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 40% 98%;
+
+  --border: 217.2 32.6% 17.5%;
+  --input: 217.2 32.6% 17.5%;
+  --ring: 212.7 26.8% 83.9%;
+}
+
+@layer base {
+  * {
+    @apply border-[#e5e7eb];
+  }
+  body {
+    @apply bg-white text-black;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* CV Editor Styles */
+.cv-editor-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.cv-form-tabs {
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Animations */
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+.slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* CV Preview Styles */
+.cv-preview {
+  background-color: white;
+  padding: 30px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.cv-header {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.cv-name {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+.cv-title {
+  font-size: 1.25rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.cv-contact {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+.section-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-bottom: 2px solid #333;
+  padding-bottom: 5px;
+  margin: 25px 0 15px 0;
+}
+
+.cv-summary {
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.cv-section {
+  margin-bottom: 20px;
+}
+
+.cv-job {
+  margin-bottom: 15px;
+}
+
+.clearfix {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 5px;
+}
+
+.cv-job-title {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.cv-job-company {
+  font-weight: bold;
+}
+
+.cv-job-period {
+  font-style: italic;
+  color: #666;
+}
+
+.cv-job-description {
+  font-style: italic;
+  color: #555;
+  margin: 5px 0;
+}
+
+.cv-achievements {
+  list-style-type: disc;
+  padding-left: 20px;
+  margin: 10px 0;
+}
+
+.cv-achievements li {
+  margin-bottom: 3px;
+}
+
+.cv-skills-section {
+  margin-bottom: 10px;
+}
+
+.cv-skills-title {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.cv-skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.cv-skill {
+  background-color: #f0f0f0;
+  padding: 3px 10px;
+  border-radius: 15px;
+  font-size: 0.9rem;
+}
+
+.cv-language {
+  display: flex;
+  margin-bottom: 5px;
+}
+
+.cv-language-name {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+/* Print styles */
+@media print {
+  body {
+    background-color: white;
+  }
+
+  .cv-preview {
+    box-shadow: none;
+    padding: 0;
+    max-width: 100%;
+  }
+
+  .print:slide-in-none {
+    animation: none;
+  }
+}
+
+/* Общие стили контейнера */
+.cv-editor-container {
+  @apply max-w-full mx-auto px-4 py-8;
+}
+
+/* Стили для редактора CV */
+.cv-form-tabs {
+  @apply bg-white rounded-lg p-4 shadow-md;
+}
+
+/* Стили для предпросмотра CV */
+.cv-preview {
+  @apply bg-white shadow-md rounded-lg p-8 print:shadow-none print:p-0 my-4;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.cv-preview h1 {
+  @apply text-3xl font-bold mb-1 text-black;
+}
+
+.cv-preview h2 {
+  @apply text-xl font-semibold mb-2 text-black;
+}
+
+.cv-preview h3 {
+  @apply text-lg font-semibold border-b border-gray-300 pb-1 mb-3 uppercase;
+}
+
+.cv-preview .section-title {
+  font-size: 18px;
+  text-transform: uppercase;
+  border-bottom: 1px solid #333;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.cv-preview p {
+  @apply mb-2 text-gray-700;
+}
+
+.cv-preview ul {
+  @apply list-disc pl-5 mb-4;
+}
+
+.cv-preview li {
+  @apply mb-1;
+}
+
+/* Специфичные стили для резюме */
+.cv-header {
+  @apply text-center mb-5;
+}
+
+.cv-contact-info {
+  @apply text-center mb-4 text-sm;
+}
+
+.cv-section {
+  @apply mb-5;
+}
+
+.cv-job {
+  @apply mb-4;
+}
+
+.cv-job-title {
+  @apply font-bold mb-1;
+}
+
+.cv-job-company {
+  @apply font-bold;
+}
+
+.cv-job-period {
+  @apply float-right;
+}
+
+.cv-job-location {
+  @apply float-right;
+}
+
+.cv-job-description {
+  @apply italic mb-2 text-sm;
+}
+
+.cv-achievements {
+  @apply list-disc pl-5 mt-2;
+}
+
+.cv-skills-category {
+  @apply font-bold;
+}
+
+/* Компонент для очистки плавающих элементов */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Стили для печати и экспорта */
+@media print {
+  body {
+    background-color: white;
+    margin: 0;
+    padding: 0;
+  }
+
+  .cv-preview {
+    @apply max-w-full shadow-none p-0 m-0;
+  }
+
+  .no-print {
+    @apply hidden;
+  }
+}
+
+/* Отзывчивые стили */
+@media (max-width: 768px) {
+  .cv-editor-container {
+    @apply px-4;
+  }
+
+  .cv-form-tabs {
+    @apply overflow-x-auto;
+  }
+}
+
+/* Accessibility styles */
+.sr-only {
+  @apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0;
+}
+
+:focus-visible {
+  @apply outline-2 outline-offset-2 outline-primary;
+}
