@@ -5,91 +5,91 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
-CV Creator - это современное веб-приложение для создания профессиональных резюме. Приложение разработано с использованием Next.js, TypeScript и предлагает простой и интуитивно понятный интерфейс для создания, редактирования и экспорта резюме в PDF формате.
+CV Creator is a modern web application for creating professional resumes. The application is built using Next.js, TypeScript and offers a simple and intuitive interface for creating, editing and exporting resumes in PDF format.
 
 ![CV Creator Preview](https://placehold.co/600x400?text=CV+Creator)
 
-## ✨ Возможности
+## ✨ Features
 
-- **Интуитивно понятный интерфейс**: Легкое редактирование всех разделов резюме
-- **Предпросмотр в реальном времени**: Мгновенное отображение изменений в PDF
-- **Поддержка Markdown**: Форматирование текста в разделах навыков и языков
-- **Экспорт в PDF**: Удобный экспорт готового резюме в формате PDF
-- **Сохранение данных**: Автоматическое сохранение в локальном хранилище браузера
-- **Адаптивный дизайн**: Корректное отображение на мобильных устройствах и десктопах
+- **Intuitive Interface**: Easy editing of all resume sections
+- **Real-time Preview**: Instant display of changes in PDF
+- **Markdown Support**: Text formatting in skills and languages sections
+- **PDF Export**: Convenient export of finished resume in PDF format
+- **Data Saving**: Automatic saving in browser local storage
+- **Responsive Design**: Correct display on mobile devices and desktops
 
-## 🛠️ Технологии
+## 🛠️ Technologies
 
 - **Frontend**: Next.js 14, TypeScript, React, TailwindCSS
 - **State Management**: Zustand
 - **PDF Processing**: React-PDF
 - **UI Components**: Shadcn/UI
 
-## 📋 Разделы резюме
+## 📋 Resume Sections
 
-- 👤 Личная информация
-- 📝 Краткое описание
-- 💼 Опыт работы
-- 🎓 Образование
-- 🔧 Навыки
-- 🏆 Сертификаты
-- 🌐 Языки
+- 👤 Personal Information
+- 📝 Summary
+- 💼 Work Experience
+- 🎓 Education
+- 🔧 Skills
+- 🏆 Certificates
+- 🌐 Languages
 
-## 🚀 Установка и запуск
+## 🚀 Installation and Launch
 
-### Предварительные требования
+### Prerequisites
 
-- Node.js 18.x или выше
-- npm или yarn
+- Node.js 18.x or higher
+- npm or yarn
 
-### Шаги установки
+### Installation Steps
 
-1. Клонируйте репозиторий
+1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/cv-creator.git
+git clone https://github.com/sjakaev/cv-creator.git
 cd cv-creator
 ```
 
-2. Установите зависимости
+2. Install dependencies
 ```bash
 npm install
-# или
+# or
 yarn install
 ```
 
-3. Запустите приложение в режиме разработки
+3. Run the application in development mode
 ```bash
 npm run dev
-# или
+# or
 yarn dev
 ```
 
-4. Откройте [http://localhost:3000](http://localhost:3000) в вашем браузере
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-## 🔧 Сборка для продакшена
+## 🔧 Production Build
 
 ```bash
 npm run build
 npm run start
-# или
+# or
 yarn build
 yarn start
 ```
 
-## 🤝 Вклад в проект
+## 🤝 Contributing
 
-Будем рады вашему вкладу в проект! Если вы хотите внести свой вклад:
+We welcome your contribution to the project! If you want to contribute:
 
-1. Форкните репозиторий
-2. Создайте ветку для вашей функции (`git checkout -b feature/amazing-feature`)
-3. Зафиксируйте изменения (`git commit -m 'Add some amazing feature'`)
-4. Отправьте ветку (`git push origin feature/amazing-feature`)
-5. Откройте Pull Request
+1. Fork the repository
+2. Create a branch for your feature (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-## 📄 Лицензия
+## 📄 License
 
-Проект распространяется под лицензией MIT. См. файл [LICENSE](LICENSE) для получения дополнительной информации.
+The project is distributed under the MIT license. See the [LICENSE](LICENSE) file for more information.
 
-## 📧 Контакты
+## 📧 Contact
 
-Если у вас есть вопросы или предложения, пожалуйста, создайте [Issue](https://github.com/yourusername/cv-creator/issues) в этом репозитории.
+If you have questions or suggestions, please create an [Issue](https://github.com/sjakaev/cv-creator/issues) in this repository.
