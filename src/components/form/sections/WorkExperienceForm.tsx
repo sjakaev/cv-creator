@@ -178,7 +178,7 @@ export function WorkExperienceForm() {
               </div>
 
               <div className="space-y-2">
-                <Label>End Date (or "Present")</Label>
+                <Label>End Date (or &quot;Present&quot;)</Label>
                 <Input
                   type="month"
                   value={experience.endDate}
@@ -275,7 +275,7 @@ export function WorkExperienceForm() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="endDate">End Date (or "Present")</Label>
+              <Label htmlFor="endDate">End Date (or &quot;Present&quot;)</Label>
               <Input
                 id="endDate"
                 name="endDate"
