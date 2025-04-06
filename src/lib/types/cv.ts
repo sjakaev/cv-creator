@@ -20,6 +20,7 @@ export interface WorkExperience {
   startDate: string;
   endDate: string;
   location?: string;
+  isCurrent?: boolean;
   achievements: string[];
 }
 
@@ -30,6 +31,7 @@ export interface Education {
   startDate: string;
   endDate: string;
   location?: string;
+  isCurrent?: boolean;
 }
 
 export interface Certificate {

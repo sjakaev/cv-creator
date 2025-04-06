@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Plus, Trash, X } from 'lucide-react';
 import { generateId } from '@/lib/utils';
+import { Checkbox } from '@/components/ui/checkbox';
 
 export function WorkExperienceForm() {
   const { data, addWorkExperience, updateWorkExperience, removeWorkExperience, addAchievement, updateAchievement, removeAchievement } = useCVStore();
@@ -20,6 +21,8 @@ export function WorkExperienceForm() {
     position: '',
     startDate: '',
     endDate: '',
+    location: '',
+    isCurrent: false,
     achievements: ['']
   });
 
@@ -29,6 +32,7 @@ export function WorkExperienceForm() {
     position: '',
     startDate: '',
     endDate: '',
+    location: '',
   });
 
   const validateField = (name: string, value: string) => {
@@ -38,6 +42,9 @@ export function WorkExperienceForm() {
       case 'position':
       case 'startDate':
         return value.trim() ? '' : `${name.charAt(0).toUpperCase() + name.slice(1)} is required`;
+      case 'endDate':
+        // Если это текущее место работы, то конечная дата не требуется
+        return newExperience.isCurrent ? '' : (value.trim() ? '' : 'End Date is required');
       default:
         return '';
     }
@@ -55,6 +62,21 @@ export function WorkExperienceForm() {
       ...newExperience,
       [name]: value
     });
+  };
+
+  const handleCurrentCheckboxChange = (checked: boolean) => {
+    setNewExperience({
+      ...newExperience,
+      isCurrent: checked,
+      endDate: checked ? 'Present' : ''
+    });
+
+    if (checked) {
+      setErrors({
+        ...errors,
+        endDate: ''
+      });
+    }
   };
 
   const handleAddAchievement = () => {
@@ -91,7 +113,8 @@ export function WorkExperienceForm() {
       companyDescription: validateField('companyDescription', newExperience.companyDescription),
       position: validateField('position', newExperience.position),
       startDate: validateField('startDate', newExperience.startDate),
-      endDate: '',
+      endDate: validateField('endDate', newExperience.endDate),
+      location: ''
     };
 
     setErrors(newErrors);
@@ -116,12 +139,21 @@ export function WorkExperienceForm() {
       position: '',
       startDate: '',
       endDate: '',
+      location: '',
+      isCurrent: false,
       achievements: ['']
     });
   };
 
   const handleExperienceChange = (id: string, field: string, value: string) => {
     updateWorkExperience(id, { [field]: value });
+  };
+
+  const handleExperienceCurrentChange = (id: string, checked: boolean) => {
+    updateWorkExperience(id, {
+      endDate: checked ? 'Present' : '',
+      isCurrent: checked
+    });
   };
 
   const handleExperienceAchievementChange = (experienceId: string, index: number, value: string) => {
@@ -152,7 +184,7 @@ export function WorkExperienceForm() {
 
           <CardContent className="pt-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-              <div className="space-y-2">
+              <div className="space-y-2 md:col-span-1">
                 <Label>Company</Label>
                 <Input
                   value={experience.company}
@@ -160,7 +192,7 @@ export function WorkExperienceForm() {
                 />
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-2 md:col-span-1">
                 <Label>Position</Label>
                 <Input
                   value={experience.position}
@@ -168,7 +200,7 @@ export function WorkExperienceForm() {
                 />
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-2 md:col-span-1">
                 <Label>Start Date</Label>
                 <Input
                   type="month"
@@ -177,12 +209,37 @@ export function WorkExperienceForm() {
                 />
               </div>
 
-              <div className="space-y-2">
-                <Label>End Date (or &quot;Present&quot;)</Label>
+              <div className="space-y-2 md:col-span-1">
+                <Label>End Date</Label>
+                <div className="flex flex-col gap-2">
+                  <Input
+                    type="month"
+                    value={experience.endDate !== 'Present' ? experience.endDate : ''}
+                    onChange={(e) => handleExperienceChange(experience.id, 'endDate', e.target.value)}
+                    disabled={experience.endDate === 'Present'}
+                  />
+                  <div className="flex items-center space-x-2">
+                    <Checkbox
+                      id={`current-job-${experience.id}`}
+                      checked={experience.endDate === 'Present'}
+                      onCheckedChange={(checked) => handleExperienceCurrentChange(experience.id, checked === true)}
+                    />
+                    <label
+                      htmlFor={`current-job-${experience.id}`}
+                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      Currently working here
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-2 md:col-span-2">
+                <Label>Location</Label>
                 <Input
-                  type="month"
-                  value={experience.endDate}
-                  onChange={(e) => handleExperienceChange(experience.id, 'endDate', e.target.value)}
+                  value={experience.location || ''}
+                  onChange={(e) => handleExperienceChange(experience.id, 'location', e.target.value)}
+                  placeholder="e.g. San Francisco, CA"
                 />
               </div>
             </div>
@@ -235,7 +292,7 @@ export function WorkExperienceForm() {
           <h3 className="text-lg font-medium mb-4">Add New Work Experience</h3>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-            <div className="space-y-2">
+            <div className="space-y-2 md:col-span-1">
               <Label htmlFor="company">Company *</Label>
               <Input
                 id="company"
@@ -248,25 +305,25 @@ export function WorkExperienceForm() {
               {errors.company && <p className="text-red-500 text-sm">{errors.company}</p>}
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-2 md:col-span-1">
               <Label htmlFor="position">Position *</Label>
               <Input
                 id="position"
                 name="position"
                 value={newExperience.position}
                 onChange={handleNewExperienceChange}
-                placeholder="Senior Frontend Developer"
+                placeholder="Your job title"
                 className={errors.position ? 'border-red-500' : ''}
               />
               {errors.position && <p className="text-red-500 text-sm">{errors.position}</p>}
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-2 md:col-span-1">
               <Label htmlFor="startDate">Start Date *</Label>
               <Input
+                type="month"
                 id="startDate"
                 name="startDate"
-                type="month"
                 value={newExperience.startDate}
                 onChange={handleNewExperienceChange}
                 className={errors.startDate ? 'border-red-500' : ''}
@@ -274,14 +331,44 @@ export function WorkExperienceForm() {
               {errors.startDate && <p className="text-red-500 text-sm">{errors.startDate}</p>}
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="endDate">End Date (or &quot;Present&quot;)</Label>
+            <div className="space-y-2 md:col-span-1">
+              <Label htmlFor="endDate">End Date {newExperience.isCurrent ? '' : '*'}</Label>
+              <div className="flex flex-col gap-2">
+                <Input
+                  type="month"
+                  id="endDate"
+                  name="endDate"
+                  value={newExperience.isCurrent ? '' : newExperience.endDate}
+                  onChange={handleNewExperienceChange}
+                  className={errors.endDate ? 'border-red-500' : ''}
+                  disabled={newExperience.isCurrent}
+                />
+                {errors.endDate && <p className="text-red-500 text-sm">{errors.endDate}</p>}
+
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="current-job"
+                    checked={newExperience.isCurrent}
+                    onCheckedChange={(checked) => handleCurrentCheckboxChange(checked === true)}
+                  />
+                  <label
+                    htmlFor="current-job"
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    Currently working here
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-2 md:col-span-2">
+              <Label htmlFor="location">Location</Label>
               <Input
-                id="endDate"
-                name="endDate"
-                type="month"
-                value={newExperience.endDate}
+                id="location"
+                name="location"
+                value={newExperience.location}
                 onChange={handleNewExperienceChange}
+                placeholder="e.g. San Francisco, CA"
               />
             </div>
           </div>
@@ -293,7 +380,7 @@ export function WorkExperienceForm() {
               name="companyDescription"
               value={newExperience.companyDescription}
               onChange={handleNewExperienceChange}
-              placeholder="Describe your company..."
+              placeholder="Briefly describe the company and its industry"
               className={errors.companyDescription ? 'border-red-500' : ''}
             />
             {errors.companyDescription && <p className="text-red-500 text-sm">{errors.companyDescription}</p>}

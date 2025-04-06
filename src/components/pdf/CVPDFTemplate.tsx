@@ -110,18 +110,18 @@ const styles = StyleSheet.create({
       fontWeight: 700,
       marginBottom: 4,
       marginTop: 15,
-    //   borderBottom: '1 solid #999', // Gray line at bottom
+      // borderBottom: '1 solid #999', // Gray line at bottom
       paddingBottom: 2,
       textTransform: 'uppercase', // Uppercase
       textDecoration: 'underline',
       // backgroundColor: 'skyblue', // Remove background colors
     },
     summary: {
-      marginBottom: 12,
+      marginBottom: 0,
       // backgroundColor: 'blue', // Remove background colors
     },
     experienceItem: {
-      marginBottom: 12,
+      marginBottom: 0,
       // backgroundColor: 'orange', // Remove background colors
     },
     jobHeader: {
@@ -133,9 +133,13 @@ const styles = StyleSheet.create({
       fontWeight: 700,
       fontSize: 12, // Slightly larger than main text
     },
+    datesContainer: {
+      alignItems: 'flex-end', // Выравнивание внутренних элементов по правому краю
+    },
     dates: {
       fontSize: 10, // Small font for dates
       color: '#555', // Gray color
+      textAlign: 'right', // Выравнивание текста по правому краю
     },
     position: {
       fontWeight: 700,
@@ -146,6 +150,7 @@ const styles = StyleSheet.create({
       fontSize: 10,
       color: '#555', // Gray color
       marginBottom: 3,
+      textAlign: 'right', // Выравнивание текста по правому краю
     },
     companyDescription: {
       fontSize: 10,
@@ -165,7 +170,7 @@ const styles = StyleSheet.create({
       flex: 1,
     },
     educationItem: {
-      marginBottom: 10,
+      marginBottom: 0,
     },
     skillCategory: {
       marginBottom: 8,
@@ -202,10 +207,19 @@ const styles = StyleSheet.create({
 // Date formatting
 const formatDate = (dateString: string) => {
   if (!dateString) return '';
-  const date = new Date(dateString);
-  const month = date.toLocaleString('en-US', { month: 'short' });
-  const year = date.getFullYear();
-  return `${month} ${year}`;
+  if (dateString === 'Present') return 'Present';
+
+  try {
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) return dateString; // Если невалидная дата, вернем исходную строку
+
+    const month = date.toLocaleString('en-US', { month: 'short' });
+    const year = date.getFullYear();
+    return `${month} ${year}`;
+  } catch (error) {
+    console.error("Error formatting date:", error);
+    return dateString;
+  }
 };
 
 // Component for PDF generation
@@ -307,12 +321,14 @@ const CVPDFTemplate: React.FC<{ data: CVData }> = ({ data }) => {
               <View key={job.id || index} style={styles.experienceItem}>
                 <View style={styles.jobHeader}>
                   <Text style={styles.company}>{job.company}</Text>
-                  <Text style={styles.dates}>
-                    {formatDate(job.startDate)} - {job.endDate ? formatDate(job.endDate) : 'Present'}
-                  </Text>
+                  <View style={styles.datesContainer}>
+                    <Text style={styles.dates}>
+                      {formatDate(job.startDate)} - {job.endDate === 'Present' ? 'Present' : formatDate(job.endDate)}
+                    </Text>
+                    {job.location && <Text style={styles.location}>{job.location}</Text>}
+                  </View>
                 </View>
                 <Text style={styles.position}>{job.position}</Text>
-                {job.location && <Text style={styles.location}>{job.location}</Text>}
                 {job.companyDescription && <Text style={styles.companyDescription}>{job.companyDescription}</Text>}
 
                 {job.achievements && job.achievements.length > 0 && job.achievements.map((achievement, idx) => (
@@ -333,13 +349,15 @@ const CVPDFTemplate: React.FC<{ data: CVData }> = ({ data }) => {
             {education.map((edu, index) => (
               <View key={edu.id || index} style={styles.educationItem}>
                 <View style={styles.jobHeader}>
-                  <Text style={styles.company}>{edu.university}</Text>
-                  <Text style={styles.dates}>
-                    {formatDate(edu.startDate)} - {formatDate(edu.endDate)}
-                  </Text>
+                  <Text style={styles.company}>{edu.specialization}</Text>
+                  <View style={styles.datesContainer}>
+                    <Text style={styles.dates}>
+                      {formatDate(edu.startDate)} - {edu.endDate === 'Present' ? 'Present' : formatDate(edu.endDate)}
+                    </Text>
+                    {edu.location && <Text style={styles.location}>{edu.location}</Text>}
+                  </View>
                 </View>
-                <Text style={styles.position}>{edu.specialization}</Text>
-                {edu.location && <Text style={styles.location}>{edu.location}</Text>}
+                <Text style={styles.position}>{edu.university}</Text>
               </View>
             ))}
           </>
