@@ -134,12 +134,12 @@ const styles = StyleSheet.create({
       fontSize: 12, // Slightly larger than main text
     },
     datesContainer: {
-      alignItems: 'flex-end', // Выравнивание внутренних элементов по правому краю
+      alignItems: 'flex-end',
     },
     dates: {
       fontSize: 10, // Small font for dates
       color: '#555', // Gray color
-      textAlign: 'right', // Выравнивание текста по правому краю
+      textAlign: 'right',
     },
     position: {
       fontWeight: 700,
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
       fontSize: 10,
       color: '#555', // Gray color
       marginBottom: 3,
-      textAlign: 'right', // Выравнивание текста по правому краю
+      textAlign: 'right',
     },
     companyDescription: {
       fontSize: 10,
@@ -325,10 +325,13 @@ const CVPDFTemplate: React.FC<{ data: CVData }> = ({ data }) => {
                     <Text style={styles.dates}>
                       {formatDate(job.startDate)} - {job.endDate === 'Present' ? 'Present' : formatDate(job.endDate)}
                     </Text>
-                    {job.location && <Text style={styles.location}>{job.location}</Text>}
                   </View>
                 </View>
-                <Text style={styles.position}>{job.position}</Text>
+
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 3 }}>
+                  <Text style={styles.position}>{job.position}</Text>
+                  {job.location && <Text style={styles.location}>{job.location}</Text>}
+                </View>
                 {job.companyDescription && <Text style={styles.companyDescription}>{job.companyDescription}</Text>}
 
                 {job.achievements && job.achievements.length > 0 && job.achievements.map((achievement, idx) => (
@@ -354,10 +357,12 @@ const CVPDFTemplate: React.FC<{ data: CVData }> = ({ data }) => {
                     <Text style={styles.dates}>
                       {formatDate(edu.startDate)} - {edu.endDate === 'Present' ? 'Present' : formatDate(edu.endDate)}
                     </Text>
-                    {edu.location && <Text style={styles.location}>{edu.location}</Text>}
                   </View>
                 </View>
-                <Text style={styles.position}>{edu.university}</Text>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 3 }}>
+                  <Text style={styles.position}>{edu.university}</Text>
+                  {edu.location && <Text style={styles.location}>{edu.location}</Text>}
+                </View>
               </View>
             ))}
           </>
