@@ -14,43 +14,45 @@ export function CVForm() {
   return (
     <div className="space-y-6">
       <h2 className="text-2xl font-bold">Edit CV</h2>
-      
+
       <Tabs defaultValue="personal" className="cv-form-tabs">
-        <TabsList className="grid grid-cols-3 md:grid-cols-7 w-full">
-          <TabsTrigger value="personal" className="text-xs md:text-sm">Personal</TabsTrigger>
-          <TabsTrigger value="summary" className="text-xs md:text-sm">Summary</TabsTrigger>
-          <TabsTrigger value="experience" className="text-xs md:text-sm">Experience</TabsTrigger>
-          <TabsTrigger value="education" className="text-xs md:text-sm">Education</TabsTrigger>
-          <TabsTrigger value="skills" className="text-xs md:text-sm">Skills</TabsTrigger>
-          <TabsTrigger value="certificates" className="text-xs md:text-sm">Certificates</TabsTrigger>
-          <TabsTrigger value="languages" className="text-xs md:text-sm">Languages</TabsTrigger>
-        </TabsList>
-        
+        <div className="w-full overflow-x-auto pb-2 scrollbar-hide">
+          <TabsList className="w-max xl:w-full min-w-full xl:grid xl:grid-cols-7">
+            <TabsTrigger value="personal" className="whitespace-nowrap px-3 xl:px-4 text-xs sm:text-sm xl:text-base">Personal</TabsTrigger>
+            <TabsTrigger value="summary" className="whitespace-nowrap px-3 xl:px-4 text-xs sm:text-sm xl:text-base">Summary</TabsTrigger>
+            <TabsTrigger value="experience" className="whitespace-nowrap px-3 xl:px-4 text-xs sm:text-sm xl:text-base">Experience</TabsTrigger>
+            <TabsTrigger value="education" className="whitespace-nowrap px-3 xl:px-4 text-xs sm:text-sm xl:text-base">Education</TabsTrigger>
+            <TabsTrigger value="skills" className="whitespace-nowrap px-3 xl:px-4 text-xs sm:text-sm xl:text-base">Skills</TabsTrigger>
+            <TabsTrigger value="certificates" className="whitespace-nowrap px-3 xl:px-4 text-xs sm:text-sm xl:text-base">Certificates</TabsTrigger>
+            <TabsTrigger value="languages" className="whitespace-nowrap px-3 xl:px-4 text-xs sm:text-sm xl:text-base">Languages</TabsTrigger>
+          </TabsList>
+        </div>
+
         <div className="mt-4 slide-in">
           <TabsContent value="personal" className="space-y-4">
             <PersonalInfoForm />
           </TabsContent>
-          
+
           <TabsContent value="summary" className="space-y-4">
             <SummaryForm />
           </TabsContent>
-          
+
           <TabsContent value="experience" className="space-y-4">
             <WorkExperienceForm />
           </TabsContent>
-          
+
           <TabsContent value="education" className="space-y-4">
             <EducationForm />
           </TabsContent>
-          
+
           <TabsContent value="skills" className="space-y-4">
             <SkillsForm />
           </TabsContent>
-          
+
           <TabsContent value="certificates" className="space-y-4">
             <CertificatesForm />
           </TabsContent>
-          
+
           <TabsContent value="languages" className="space-y-4">
             <LanguagesForm />
           </TabsContent>

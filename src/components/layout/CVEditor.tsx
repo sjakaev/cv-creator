@@ -1,31 +1,47 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
 import { CVForm } from '@/components/form/CVForm';
 import { CVPreviewWithExport } from '@/components/preview/CVPreviewWithExport';
 
 export function CVEditor() {
-  return (
-    <div className="cv-editor-container py-6">
-      <header className="mb-6 fade-in">
-        <h1 className="text-3xl font-bold text-center">CV Editor</h1>
-        <p className="text-center text-gray-500">Create and customize your professional CV</p>
-      </header>
+  const [direction, setDirection] = useState<'horizontal' | 'vertical'>('horizontal');
 
-      <ResizablePanelGroup 
-        direction="horizontal" 
-        className="min-h-[calc(100vh-150px)] rounded-lg border shadow-sm"
+  useEffect(() => {
+    const handleResize = () => {
+      setDirection(window.innerWidth < 768 ? 'vertical' : 'horizontal');
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return (
+    <div className="cv-editor-container h-screen w-full flex flex-col">
+      <ResizablePanelGroup
+        direction={direction}
+        className="flex-1 w-full rounded-lg border shadow-sm"
       >
-        <ResizablePanel defaultSize={50} minSize={30} className="bg-card">
+        <ResizablePanel
+          defaultSize={50}
+          minSize={30}
+          className="bg-card min-h-[300px]"
+        >
           <div className="h-full p-4 overflow-y-auto">
             <CVForm />
           </div>
         </ResizablePanel>
-        
+
         <ResizableHandle withHandle />
-        
-        <ResizablePanel defaultSize={50} minSize={30}>
+
+        <ResizablePanel
+          defaultSize={50}
+          minSize={30}
+          className="min-h-[300px]"
+        >
           <div className="h-full p-4 overflow-y-auto bg-white">
             <CVPreviewWithExport />
           </div>
