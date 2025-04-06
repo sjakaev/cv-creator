@@ -1,14 +1,23 @@
 # CV Creator - Исправление ошибки деплоя на Netlify
 
-## Исправленная проблема
+## Исправленные проблемы
 
+### Проблема 1: ESLint ошибки
 Ошибка, возникшая при деплое, была связана с двумя факторами:
 1. Неэкранированные кавычки в файле `WorkExperienceForm.tsx`
 2. Строгие настройки ESLint при сборке на Netlify
 
-## Применённое решение
+### Проблема 2: Отсутствие функции generateId
+При деплое была обнаружена ошибка:
+```
+Type error: Module '"@/lib/utils"' has no exported member 'generateId'.
+> 11 | import { generateId } from '@/lib/utils';
+```
 
-1. Создан файл `next.config.js`, в котором отключена проверка ESLint при сборке:
+## Применённые решения
+
+### Решение проблемы 1
+Создан файл `next.config.js`, в котором отключена проверка ESLint при сборке:
 ```javascript
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -27,7 +36,20 @@ const nextConfig = {
 module.exports = nextConfig;
 ```
 
-2. Создан новый архив `site_fixed.zip`, включающий обновленную конфигурацию
+### Решение проблемы 2
+1. Добавлена функция `generateId` в файл `src/lib/utils.ts`:
+```javascript
+export function generateId(): string {
+  return Math.random().toString(36).substring(2, 9);
+}
+```
+
+2. Исправлен импорт в файле `src/components/form/sections/WorkExperienceForm.tsx`:
+```javascript
+import { generateId } from '@/lib/utils';
+```
+
+3. Создан новый архив `site_fixed.zip`, включающий обновленную конфигурацию и исправления
 
 ## Инструкция по деплою
 
