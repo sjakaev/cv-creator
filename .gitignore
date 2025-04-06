@@ -3,6 +3,8 @@
 /.pnp
 .pnp.js
 .yarn/install-state.gz
+/netlify_deploy
+/temp_deploy
 
 # testing
 /coverage
