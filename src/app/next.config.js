@@ -6,7 +6,7 @@ const nextConfig = {
 
     return config;
   },
-  // При необходимости, если возникнут проблемы с компиляцией
+  // If needed, in case of compilation problems
   // swcMinify: false,
 };
 

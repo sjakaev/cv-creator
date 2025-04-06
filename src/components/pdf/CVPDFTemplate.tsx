@@ -2,38 +2,38 @@ import React from 'react';
 import { Document, Page, Text, View, StyleSheet, Font, Link } from '@react-pdf/renderer';
 import { CVData } from '@/lib/types/cv';
 
-// Функция для базовой обработки Markdown
+// Function for basic Markdown processing
 const processMarkdown = (text: string) => {
   if (!text) return [];
 
-  // Разделяем текст на строки
+  // Split text into lines
   const lines = text.split('\n');
 
   return lines.map((line, index) => {
-    // Обрабатываем списки
+    // Process lists
     if (line.trim().startsWith('- ') || line.trim().startsWith('* ')) {
       return { type: 'listItem', content: line.trim().substring(2), key: `li-${index}` };
     }
 
-    // Если строка пустая, создаем разрыв
+    // If the line is empty, create a break
     if (line.trim() === '') {
       return { type: 'break', content: '', key: `br-${index}` };
     }
 
-    // Обычный текст
+    // Regular text
     return { type: 'paragraph', content: line, key: `p-${index}` };
   });
 };
 
-// Функция для обработки встроенного форматирования
+// Function for processing inline formatting
 const renderFormattedText = (text: string) => {
-  // Заменяем **жирный текст**
+  // Replace **bold text**
   let content = text.replace(/\*\*(.*?)\*\*/g, (_, match) => `{{bold:${match}}}`);
 
-  // Заменяем *курсив*
+  // Replace *italic*
   content = content.replace(/\*(.*?)\*/g, (_, match) => `{{italic:${match}}}`);
 
-  // Разбиваем на части по тегам форматирования
+  // Split into parts by formatting tags
   const parts = content.split(/({{bold:.*?}})|({{italic:.*?}})/);
 
   return parts.filter(Boolean).map((part, index) => {
@@ -43,14 +43,14 @@ const renderFormattedText = (text: string) => {
     }
     if (part.startsWith('{{italic:')) {
       const italicText = part.substring(9, part.length - 2);
-      // Используем подчеркивание вместо курсива
+      // Use underline instead of italic
       return <Text key={index} style={{ textDecoration: 'underline' }}>{italicText}</Text>;
     }
     return <Text key={index}>{part}</Text>;
   });
 };
 
-// Регистрация стандартных шрифтов PDF
+// Registration of standard PDF fonts
 Font.register({
   family: 'Roboto',
   fonts: [
@@ -60,7 +60,7 @@ Font.register({
   ],
 });
 
-// Стили для PDF документа
+// Styles for PDF document
 const styles = StyleSheet.create({
     page: {
       padding: 30,
@@ -106,23 +106,23 @@ const styles = StyleSheet.create({
       color: '#000',
     },
     sectionTitle: {
-      fontSize: 12, // Размер как в примере
+      fontSize: 12, // Size as in example
       fontWeight: 700,
       marginBottom: 4,
       marginTop: 15,
-    //   borderBottom: '1 solid #999', // Серая линия снизу
+    //   borderBottom: '1 solid #999', // Gray line at bottom
       paddingBottom: 2,
-      textTransform: 'uppercase', // Верхний регистр
+      textTransform: 'uppercase', // Uppercase
       textDecoration: 'underline',
-      // backgroundColor: 'skyblue', // Убираем фоновые цвета
+      // backgroundColor: 'skyblue', // Remove background colors
     },
     summary: {
       marginBottom: 12,
-      // backgroundColor: 'blue', // Убираем фоновые цвета
+      // backgroundColor: 'blue', // Remove background colors
     },
     experienceItem: {
       marginBottom: 12,
-      // backgroundColor: 'orange', // Убираем фоновые цвета
+      // backgroundColor: 'orange', // Remove background colors
     },
     jobHeader: {
       flexDirection: 'row',
@@ -131,11 +131,11 @@ const styles = StyleSheet.create({
     },
     company: {
       fontWeight: 700,
-      fontSize: 12, // Чуть крупнее основного текста
+      fontSize: 12, // Slightly larger than main text
     },
     dates: {
-      fontSize: 10, // Мелкий шрифт для дат
-      color: '#555', // Серый цвет
+      fontSize: 10, // Small font for dates
+      color: '#555', // Gray color
     },
     position: {
       fontWeight: 700,
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     },
     location: {
       fontSize: 10,
-      color: '#555', // Серый цвет
+      color: '#555', // Gray color
       marginBottom: 3,
     },
     companyDescription: {
@@ -152,14 +152,14 @@ const styles = StyleSheet.create({
       marginBottom: 5,
     },
     bulletPoint: {
-      width: 5, // Увеличен размер маркера
+      width: 5, // Increased marker size
       marginRight: 5,
       marginTop: 2,
     },
     achievement: {
       flexDirection: 'row',
       marginBottom: 3,
-      marginLeft: 10, // Отступ для выравнивания текста с маркером
+      marginLeft: 10, // Indent for text alignment with marker
     },
     achievementText: {
       flex: 1,
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
     },
   });
 
-// Форматирование даты
+// Date formatting
 const formatDate = (dateString: string) => {
   if (!dateString) return '';
   const date = new Date(dateString);
@@ -208,11 +208,11 @@ const formatDate = (dateString: string) => {
   return `${month} ${year}`;
 };
 
-// Компонент для генерации PDF
+// Component for PDF generation
 const CVPDFTemplate: React.FC<{ data: CVData }> = ({ data }) => {
   const { personalInfo, summary, workExperience, education, skills, certificates, languages } = data;
 
-  // Создаем массив контактной информации для более гибкого отображения
+  // Create an array of contact information for more flexible display
   const contactItems = [];
 
   if (personalInfo.country && personalInfo.city) {
@@ -236,7 +236,7 @@ const CVPDFTemplate: React.FC<{ data: CVData }> = ({ data }) => {
   }
 
   if (personalInfo.linkedin) {
-    // Создаем компонент для LinkedIn с корректной ссылкой
+    // Create a component for LinkedIn with correct link
     contactItems.push({
       text: `linkedin.com/in/${personalInfo.linkedin}/`,
       isLink: true,
@@ -250,11 +250,13 @@ const CVPDFTemplate: React.FC<{ data: CVData }> = ({ data }) => {
   }
 
   if (personalInfo.website) {
-    // Создаем компонент для Website с корректной ссылкой
+    // Create a component for Website with correct link
     contactItems.push({
-      text: personalInfo.website,
+      text: personalInfo.website.replace(/^https?:\/\/(www\.)?/i, ''),
       isLink: true,
-      link: personalInfo.website.startsWith('http') ? personalInfo.website : `https://${personalInfo.website}`,
+      link: personalInfo.website.startsWith('http')
+        ? personalInfo.website
+        : `https://${personalInfo.website}`,
       linkTarget: '_blank'
     });
   }
@@ -262,15 +264,15 @@ const CVPDFTemplate: React.FC<{ data: CVData }> = ({ data }) => {
   return (
     <Document>
       <Page size="A4" style={styles.page}>
-        {/* Заголовок и контактная информация */}
+        {/* Title and contact information */}
         <View style={styles.header}>
-          {/* Имя и фамилия */}
+          {/* First and last name */}
           <Text style={styles.name}>{personalInfo.firstName} {personalInfo.lastName}</Text>
 
-          {/* Должность */}
+          {/* Position */}
           {personalInfo.position && <Text style={styles.positionTitle}>{personalInfo.position}</Text>}
 
-          {/* Контактная информация */}
+          {/* Contact information */}
           <View style={styles.contactInfo}>
             {contactItems.map((item, index) => (
               <React.Fragment key={index}>
@@ -287,7 +289,7 @@ const CVPDFTemplate: React.FC<{ data: CVData }> = ({ data }) => {
           </View>
         </View>
 
-        {/* О себе */}
+        {/* About me */}
         {summary && (
           <>
             <Text style={styles.sectionTitle}>Summary</Text>
@@ -297,7 +299,7 @@ const CVPDFTemplate: React.FC<{ data: CVData }> = ({ data }) => {
           </>
         )}
 
-        {/* Опыт работы */}
+        {/* Professional Experience */}
         {workExperience && workExperience.length > 0 && (
           <>
             <Text style={styles.sectionTitle}>Professional Experience</Text>
@@ -324,7 +326,7 @@ const CVPDFTemplate: React.FC<{ data: CVData }> = ({ data }) => {
           </>
         )}
 
-        {/* Образование */}
+        {/* Education */}
         {education && education.length > 0 && (
           <>
             <Text style={styles.sectionTitle}>Education</Text>
@@ -343,7 +345,7 @@ const CVPDFTemplate: React.FC<{ data: CVData }> = ({ data }) => {
           </>
         )}
 
-        {/* Навыки */}
+        {/* Skills */}
         {skills && skills.description && (
           <>
             <Text style={styles.sectionTitle}>Skills</Text>
@@ -372,7 +374,7 @@ const CVPDFTemplate: React.FC<{ data: CVData }> = ({ data }) => {
           </>
         )}
 
-        {/* Сертификаты */}
+        {/* Certificates */}
         {certificates && certificates.length > 0 && (
           <>
             <Text style={styles.sectionTitle}>Certificates</Text>
@@ -388,7 +390,7 @@ const CVPDFTemplate: React.FC<{ data: CVData }> = ({ data }) => {
           </>
         )}
 
-        {/* Языки */}
+        {/* Languages */}
         {languages && languages.length > 0 && (
           <>
             <Text style={styles.sectionTitle}>Languages</Text>

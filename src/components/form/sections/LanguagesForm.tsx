@@ -9,16 +9,16 @@ export function LanguagesForm() {
   const { data, updateLanguage } = useCVStore();
   const { languages } = data;
 
-  // Получаем описание языков из первого элемента массива или пустую строку
+  // Get language description from the first element of the array or empty string
   const languageDescription = languages.length > 0 ? languages[0].description : '';
 
   const handleLanguageChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (languages.length === 0) {
-      // Если языков еще нет, создаем первый
+      // If no languages yet, create the first one
       const { addLanguage } = useCVStore.getState();
       addLanguage({ description: e.target.value });
     } else {
-      // Если языки уже есть, обновляем первый
+      // If languages already exist, update the first one
       updateLanguage(languages[0].id, { description: e.target.value });
     }
   };
