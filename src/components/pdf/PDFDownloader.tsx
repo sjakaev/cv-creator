@@ -50,13 +50,10 @@ const PDFDownloader: React.FC<PDFDownloaderProps> = ({
     copy.certificates = Array.isArray(copy.certificates) ? copy.certificates : [];
     copy.languages = Array.isArray(copy.languages) ? copy.languages : [];
 
-    // Ensure skills object is defined
-    if (!copy.skills) {
+    // Ensure skills object is defined with the current structure
+    if (!copy.skills || typeof copy.skills.description !== 'string') {
       copy.skills = {
-        languages: [],
-        frameworks: [],
-        tools: [],
-        other: []
+        description: ''
       };
     }
 
