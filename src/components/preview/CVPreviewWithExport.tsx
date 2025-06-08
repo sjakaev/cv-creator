@@ -1,8 +1,6 @@
 'use client';
 
 import { useCVStore } from '@/lib/store/cv-store';
-import { Button } from "@/components/ui/button";
-import { Download } from "lucide-react";
 import dynamic from 'next/dynamic';
 
 // Dynamic import of PDF components that should only work on the client side
