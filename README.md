@@ -9,7 +9,7 @@ CV Creator is a modern web application for creating professional resumes. The ap
 
 ## 🚀 Demo
 
-Check out the live demo: [3D Parallax Effect](https://dnd-parallax-3d.netlify.app)
+Check out the live demo: [CV Creator](https://cv-creator-eu.netlify.app/)
 
 ## ✨ Features
 
