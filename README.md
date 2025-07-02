@@ -7,7 +7,7 @@
 
 CV Creator is a modern web application for creating professional resumes. The application is built using Next.js, TypeScript and offers a simple and intuitive interface for creating, editing and exporting resumes in PDF format.
 
-![CV Creator Preview](https://placehold.co/600x400?text=CV+Creator)
+![CV Creator Preview](https://github.com/user-attachments/assets/2637be92-a119-46e5-84ed-ee75c9644840)
 
 ## ✨ Features
 
