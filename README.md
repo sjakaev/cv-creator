@@ -7,7 +7,9 @@
 
 CV Creator is a modern web application for creating professional resumes. The application is built using Next.js, TypeScript and offers a simple and intuitive interface for creating, editing and exporting resumes in PDF format.
 
-![CV Creator Preview](https://github.com/user-attachments/assets/2637be92-a119-46e5-84ed-ee75c9644840)
+## 🚀 Demo
+
+Check out the live demo: [3D Parallax Effect](https://dnd-parallax-3d.netlify.app)
 
 ## ✨ Features
 
@@ -27,15 +29,15 @@ CV Creator is a modern web application for creating professional resumes. The ap
 
 ## 📋 Resume Sections
 
-- 👤 Personal Information
-- 📝 Summary
-- 💼 Work Experience
-- 🎓 Education
-- 🔧 Skills
-- 🏆 Certificates
-- 🌐 Languages
+- Personal Information
+- Summary
+- Work Experience
+- Education
+- Skills
+- Certificates
+- Languages
 
-## 🚀 Installation and Launch
+## 🔧 Installation and Launch
 
 ### Prerequisites
 
